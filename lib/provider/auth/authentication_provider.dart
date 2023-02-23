@@ -19,6 +19,7 @@ class AuthenticationState extends StateNotifier<bool> {
       await ref.read(authenticationProvider).signIn(email, password);
       state = false;
     } catch (e) {
+      state = false;
       rethrow;
     }
   }
@@ -29,6 +30,7 @@ class AuthenticationState extends StateNotifier<bool> {
       await ref.read(authenticationProvider).signUp(email, password);
       state = false;
     } catch (e) {
+      state = false;
       rethrow;
     }
   }
