@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>538092630030-oqsp0jfrq0v0gtebbghaauaiv1d21cg8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.538092630030-oqsp0jfrq0v0gtebbghaauaiv1d21cg8</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>538092630030-el5qd8de5alb59f67hj104fm16hruq5r.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBvTbl0vqfdi--TqSP3ZUMyzZIZr-gkIvs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>538092630030</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.firestoreAuthRiverpod</string>
+	<key>PROJECT_ID</key>
+	<string>learn-crud-auth</string>
+	<key>STORAGE_BUCKET</key>
+	<string>learn-crud-auth.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:538092630030:ios:88ba5f044a4f9d73e8cc5f</string>
+	<key>DATABASE_URL</key>
+	<string>https://learn-crud-auth-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
