@@ -10,4 +10,29 @@ final streamUser = StreamProvider.autoDispose<User?>(
   (ref) => ref.read(authenticationProvider).stateUser,
 );
 
+class AuthenticationState extends StateNotifier<bool> {
+  AuthenticationState(this.ref) : super(false);
+  final Ref ref;
+  Future<void> signIn(String email, String password) async {
+    try {
+      state = true;
+      await ref.read(authenticationProvider).signIn(email, password);
+      state = false;
+    } catch (e) {
+      rethrow;
+    }
+  }
 
+  Future<void> signUp(String email, String password) async {
+    try {
+      state = true;
+      await ref.read(authenticationProvider).signUp(email, password);
+      state = false;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}
+
+final authStateProvider = StateNotifierProvider<AuthenticationState, bool>(
+    (ref) => AuthenticationState(ref));
