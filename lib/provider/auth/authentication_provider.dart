@@ -9,3 +9,5 @@ final authenticationProvider = Provider(
 final streamUser = StreamProvider.autoDispose<User?>(
   (ref) => ref.read(authenticationProvider).stateUser,
 );
+
+
