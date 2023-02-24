@@ -11,7 +11,8 @@ class CrudOperation {
           .collection('users')
           .doc(userId)
           .collection('dataUser')
-          .add(dataUser)
+          .doc()
+          .set(dataUser)
           .onError((error, stackTrace) => (throw error.toString()));
     } catch (e) {
       rethrow;
@@ -46,8 +47,30 @@ class CrudOperation {
       rethrow;
     }
   }
+
+  Future<List<Map<String, dynamic>>> getData(String userId) async {
+    try {
+      final data = await db
+          .collection('users')
+          .doc(userId)
+          .collection('dataUser')
+          .orderBy('date', descending: true)
+          .get()
+          .then((value) => value.docs);
+
+      final value = data.map((e) => e.data()).toList();
+      print(value[0]['university']);
+      return [];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
 
 final crudFirestoreProvider = Provider(
   (ref) => CrudOperation(),
 );
+
+final readDataProvider =
+    FutureProvider.family<List<Map<String, dynamic>>, String>(
+        (ref, userId) => ref.watch(crudFirestoreProvider).getData(userId));

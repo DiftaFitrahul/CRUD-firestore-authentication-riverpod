@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_auth_riverpod/provider/auth/authentication_provider.dart';
 import 'package:firestore_auth_riverpod/provider/crud/crud_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,22 +12,37 @@ class CreatePage extends ConsumerStatefulWidget {
 }
 
 class _CreatePageState extends ConsumerState<CreatePage> {
-  Map<String, dynamic> data = {
-    'name': 'difta fitrahul',
-    'school': 'senior high school',
-    'age': 17
-  };
+  final _name = TextEditingController();
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> data = {
+      'name': 'difta fitrahul',
+      'age': 18,
+      'date': FieldValue.serverTimestamp(),
+      'university': 'institute teknologi bandung'
+    };
     return Scaffold(
       appBar: AppBar(title: const Text('Create User')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                controller: _name,
+                decoration: const InputDecoration(hintText: "name"),
+              ),
+            ),
             ElevatedButton(
                 onPressed: () {
+                  data['name'] = _name.text;
                   ref
                       .read(crudFirestoreProvider)
                       .addData(ref.watch(streamUser).value!.uid, data)
