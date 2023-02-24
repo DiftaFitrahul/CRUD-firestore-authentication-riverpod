@@ -12,7 +12,38 @@ class CrudOperation {
           .doc(userId)
           .collection('dataUser')
           .doc()
-          .set(dataUser, SetOptions(merge: true));
+          .set(dataUser)
+          .onError((error, stackTrace) => (throw error.toString()));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateData(
+      String userId, Map<String, dynamic> dataUser, String dataId) async {
+    try {
+      await db
+          .collection('users')
+          .doc(userId)
+          .collection('dataUser')
+          .doc(dataId)
+          .update(dataUser)
+          .onError((error, stackTrace) => (throw error.toString()));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> deleteData(
+      String userId, Map<String, dynamic> dataUser, String dataId) async {
+    try {
+      await db
+          .collection('users')
+          .doc(userId)
+          .collection('dataUser')
+          .doc(dataId)
+          .delete()
+          .onError((error, stackTrace) => throw error.toString());
     } catch (e) {
       rethrow;
     }

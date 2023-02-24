@@ -22,24 +22,48 @@ class _CreatePageState extends ConsumerState<CreatePage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Create User')),
       body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              ref
-                  .read(crudFirestoreProvider)
-                  .addData(ref.watch(streamUser).value!.uid, data)
-                  .then((value) => ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(const SnackBar(
-                      content: Text("succes add data"),
-                      duration: Duration(milliseconds: 400),
-                    )))
-                  .catchError((error) => ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(SnackBar(
-                        duration: const Duration(milliseconds: 400),
-                        content: Text(error))));
-            },
-            child: const Text('Add User')),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+                onPressed: () {
+                  ref
+                      .read(crudFirestoreProvider)
+                      .addData(ref.watch(streamUser).value!.uid, data)
+                      .then((value) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                          content: Text("succes add data"),
+                          duration: Duration(milliseconds: 400),
+                        )))
+                      .catchError((error) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(SnackBar(
+                            duration: const Duration(milliseconds: 400),
+                            content: Text(error))));
+                },
+                child: const Text('Add User')),
+            ElevatedButton(
+                onPressed: () {
+                  ref
+                      .read(crudFirestoreProvider)
+                      .updateData(ref.watch(streamUser).value!.uid, data,
+                          "15peCHuvQO9wcHKL7UNv")
+                      .then((value) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                          content: Text("succes add data"),
+                          duration: Duration(milliseconds: 400),
+                        )))
+                      .catchError((error) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(SnackBar(
+                            duration: const Duration(milliseconds: 400),
+                            content: Text(error))));
+                },
+                child: const Text('Update User')),
+          ],
+        ),
       ),
     );
   }
