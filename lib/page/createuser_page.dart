@@ -52,8 +52,8 @@ class _CreatePageState extends ConsumerState<CreatePage> {
                       .then((value) => ScaffoldMessenger.of(context)
                         ..removeCurrentSnackBar()
                         ..showSnackBar(const SnackBar(
-                          content: Text("succes add data"),
-                          duration: Duration(milliseconds: 400),
+                          content: Text("succes update data"),
+                          duration: Duration(seconds: 5),
                         )))
                       .catchError((error) => ScaffoldMessenger.of(context)
                         ..removeCurrentSnackBar()
@@ -62,6 +62,25 @@ class _CreatePageState extends ConsumerState<CreatePage> {
                             content: Text(error))));
                 },
                 child: const Text('Update User')),
+            ElevatedButton(
+                onPressed: () {
+                  ref
+                      .read(crudFirestoreProvider)
+                      .deleteData(ref.watch(streamUser).value!.uid,
+                          '15peCHuvQO9wcHKL7UNvhij')
+                      .then((value) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(const SnackBar(
+                          content: Text("succes delete data"),
+                          duration: Duration(milliseconds: 600),
+                        )))
+                      .catchError((error) => ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(SnackBar(
+                            duration: const Duration(milliseconds: 400),
+                            content: Text(error))));
+                },
+                child: const Text('Delete User')),
           ],
         ),
       ),

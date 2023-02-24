@@ -11,8 +11,7 @@ class CrudOperation {
           .collection('users')
           .doc(userId)
           .collection('dataUser')
-          .doc()
-          .set(dataUser)
+          .add(dataUser)
           .onError((error, stackTrace) => (throw error.toString()));
     } catch (e) {
       rethrow;
@@ -34,8 +33,7 @@ class CrudOperation {
     }
   }
 
-  Future<void> deleteData(
-      String userId, Map<String, dynamic> dataUser, String dataId) async {
+  Future<void> deleteData(String userId, String dataId) async {
     try {
       await db
           .collection('users')
@@ -43,7 +41,7 @@ class CrudOperation {
           .collection('dataUser')
           .doc(dataId)
           .delete()
-          .onError((error, stackTrace) => throw error.toString());
+          .onError((error, stackTrace) => (throw error.toString()));
     } catch (e) {
       rethrow;
     }
