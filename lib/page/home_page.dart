@@ -29,8 +29,9 @@ class HomePage extends ConsumerWidget {
                       height: 400,
                       child: ListView.builder(
                         itemCount: data.length,
-                        itemBuilder: (context, index) =>
-                            Text(data[index].keys.toString() ?? ''),
+                        itemBuilder: (context, index) {
+                          return Text(data[index].date.toString() ?? 'makan ');
+                        },
                       ),
                     ),
                 error: (error, stackTrace) => Text('data'),

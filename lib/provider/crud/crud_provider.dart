@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firestore_auth_riverpod/model/dataUser.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CrudOperation {
@@ -48,19 +49,20 @@ class CrudOperation {
     }
   }
 
-  Future<List<Map<String, dynamic>>> getData(String userId) async {
+  Future<List<DataUser>> getData(String userId) async {
     try {
       final data = await db
           .collection('users')
           .doc(userId)
           .collection('dataUser')
-          .orderBy('date', descending: true)
+          .orderBy('date')
           .get()
-          .then((value) => value.docs);
+          .then((value) => value.docs)
+          .onError((error, stackTrace) => (throw error.toString()));
 
-      final value = data.map((e) => e.data()).toList();
-      print(value[0]['university']);
-      return [];
+      final value = data.map((e) => DataUser.fromFirestore(e.data())).toList();
+      print(value[0].name);
+      return value;
     } catch (e) {
       rethrow;
     }
@@ -71,6 +73,5 @@ final crudFirestoreProvider = Provider(
   (ref) => CrudOperation(),
 );
 
-final readDataProvider =
-    FutureProvider.family<List<Map<String, dynamic>>, String>(
-        (ref, userId) => ref.watch(crudFirestoreProvider).getData(userId));
+final readDataProvider = FutureProvider.family<List<DataUser>, String>(
+    (ref, userId) => ref.watch(crudFirestoreProvider).getData(userId));
