@@ -24,18 +24,20 @@ class HomePage extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ref.watch(readDataProvider(ref.watch(streamUser).value!.uid)).when(
-                data: (data) => SizedBox(
-                      height: 400,
-                      child: ListView.builder(
-                        itemCount: data.length,
-                        itemBuilder: (context, index) {
-                          return Text(data[index].date.toString() ?? 'makan ');
-                        },
-                      ),
-                    ),
-                error: (error, stackTrace) => Text('data'),
-                loading: () => const CircularProgressIndicator()),
+            ref
+                .watch(readDataStreamProvider(ref.watch(streamUser).value!.uid))
+                .when(
+                    data: (data) => SizedBox(
+                          height: 400,
+                          child: ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (context, index) {
+                              return Text(data[index].date.toString());
+                            },
+                          ),
+                        ),
+                    error: (error, stackTrace) => const Text('data'),
+                    loading: () => const CircularProgressIndicator()),
             TextButton(
                 onPressed: () {
                   Navigator.push(

@@ -61,8 +61,24 @@ class CrudOperation {
           .onError((error, stackTrace) => (throw error.toString()));
 
       final value = data.map((e) => DataUser.fromFirestore(e.data())).toList();
-      print(value[0].name);
       return value;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Stream<List<DataUser>> getDataContinuously(String userId) {
+    try {
+      final dataUser = db
+          .collection('users')
+          .doc(userId)
+          .collection('dataUser')
+          .orderBy('date')
+          .snapshots()
+          .handleError((e) => (throw e));
+      final data = dataUser.map((event) =>
+          event.docs.map((e) => DataUser.fromFirestore(e.data())).toList());
+      return data;
     } catch (e) {
       rethrow;
     }
@@ -75,3 +91,6 @@ final crudFirestoreProvider = Provider(
 
 final readDataProvider = FutureProvider.family<List<DataUser>, String>(
     (ref, userId) => ref.watch(crudFirestoreProvider).getData(userId));
+
+final readDataStreamProvider = StreamProvider.family<List<DataUser>, String>(
+    (ref, arg) => ref.watch(crudFirestoreProvider).getDataContinuously(arg));

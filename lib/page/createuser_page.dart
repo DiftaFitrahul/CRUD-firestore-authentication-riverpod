@@ -46,13 +46,16 @@ class _CreatePageState extends ConsumerState<CreatePage> {
                   ref
                       .read(crudFirestoreProvider)
                       .addData(ref.watch(streamUser).value!.uid, data)
-                      .then((value) => ScaffoldMessenger.of(context)
-                        ..removeCurrentSnackBar()
-                        ..showSnackBar(const SnackBar(
-                          content: Text("succes add data"),
-                          duration: Duration(milliseconds: 400),
-                        )))
-                      .catchError((error) => ScaffoldMessenger.of(context)
+                      .then((value) async {
+                    ScaffoldMessenger.of(context)
+                      ..removeCurrentSnackBar()
+                      ..showSnackBar(const SnackBar(
+                        content: Text("succes add data"),
+                        duration: Duration(milliseconds: 400),
+                      ));
+                    return await Future.delayed(const Duration(seconds: 2))
+                        .then((value) => Navigator.pop(context));
+                  }).catchError((error) => ScaffoldMessenger.of(context)
                         ..removeCurrentSnackBar()
                         ..showSnackBar(SnackBar(
                             duration: const Duration(milliseconds: 400),
